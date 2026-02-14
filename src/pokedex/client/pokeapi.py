@@ -4,13 +4,12 @@ import httpx
 #  y los posibles errores que puedan ocurrir durante las solicitudes.
 from .errors import (
     PokeApiError,
-    PokemonNotFoundError,
-    PokeApiTimeoutError,
     PokeApiRateLimitError,
     PokeApiServerError,
+    PokeApiTimeoutError,
+    PokemonNotFoundError,
 )
 from .models import Pokemon
-
 
 ### se crea la clase PokeApiClient que se encargará de interactuar con la API de
 # PokeAPI.# Esta clase tiene un método get_pokemon que toma el nombre de un

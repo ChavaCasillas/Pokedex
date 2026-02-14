@@ -5,6 +5,6 @@ format:
 	ruff format .
 
 test:
-	pytest -q
+	pytest -v
 
 check: format lint test

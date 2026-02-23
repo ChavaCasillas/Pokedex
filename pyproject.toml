@@ -10,7 +10,7 @@ dependencies = [
 
 # Esto permite ejecutar: pokedex pokemon pikachu
 [project.scripts]
-pokedex = "pokedex.cli:app"
+pokedex = "pokedex.cli:main"
 
 
 [tool.pytest.ini_options]

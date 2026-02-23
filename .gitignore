@@ -13,3 +13,6 @@ __pycache__/
 
 # Build artifacts
 *.egg-info/
+
+# Any visual code settings
+.vscode/

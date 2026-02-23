@@ -8,6 +8,12 @@ dependencies = [
     "typer>=0.9.0",
 ]
 
+[project.optional-dependencies]
+test = [
+  "pytest>=9",
+  "respx>=0.22.0",
+]
+
 # Esto permite ejecutar: pokedex pokemon pikachu
 [project.scripts]
 pokedex = "pokedex.cli:main"

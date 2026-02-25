@@ -1,6 +1,6 @@
 # Pokedex CLI
 
-![CI](https://github.com/ChavaCasillas/Pokedex/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/ChavaCasillas/Pokedex/actions/workflows/ci.yml/badge.svg)](https://github.com/ChavaCasillas/Pokedex/actions/workflows/ci.yml)
 
 A simple command-line Pokedex built in Python using the public PokeAPI.
 

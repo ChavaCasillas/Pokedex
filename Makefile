@@ -14,16 +14,16 @@ install:
 	pip install -e .
 
 test:
-	pytest -q
+	pytest -v
 
 cli_tests:
-	pytest -q tests/test_cli.py
+	pytest -v tests/test_cli.py
 
 error_tests:
-	pytest -q tests/test_errors.py
+	pytest -v tests/test_errors.py
 
 pokeapi_tests:
-	pytest -q tests/test_pokeapi.py
+	pytest -v tests/test_pokeapi.py
 
 lint:
 	ruff check .

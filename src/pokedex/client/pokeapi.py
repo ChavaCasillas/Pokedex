@@ -1,7 +1,5 @@
 import httpx
 
-### Importo los modelos y errores personalizados para manejar las respuestas de la API
-#  y los posibles errores que puedan ocurrir durante las solicitudes.
 from .errors import (
     PokeApiError,
     PokeApiRateLimitError,
@@ -9,7 +7,10 @@ from .errors import (
     PokeApiTimeoutError,
     PokemonNotFoundError,
 )
-from .models import Pokemon
+from .models import NamedAPIResource, Pokemon, PokemonMove
+
+### Importo los modelos y errores personalizados para manejar las respuestas de la API
+#  y los posibles errores que puedan ocurrir durante las solicitudes.
 
 ### se crea la clase PokeApiClient que se encargará de interactuar con la API de
 # PokeAPI.# Esta clase tiene un método get_pokemon que toma el nombre de un
@@ -71,6 +72,20 @@ class PokeApiClient:
             type_name = type_info["name"]
             types.append(type_name)
 
+        moves: list[PokemonMove] = []
+
+        for item in data.get("moves", []):
+            move_info = item["move"]  # <-- esto es NamedAPIResource en JSON
+            # lo nombramos Move en PokemonMove-> Move
+            moves.append(
+                PokemonMove(
+                    move=NamedAPIResource(
+                        name=str(move_info["name"]),
+                        url=str(move_info["url"]),
+                    )
+                )
+            )
+
         ## Finalmente, creo y devuelvo un objeto Pokemon utilizando los datos extraídos de
         # clela respuesta JSON, incluyendo el ID,
         # el nombre y la lista de tipos del Pokémon.
@@ -79,4 +94,9 @@ class PokeApiClient:
             id=int(data["id"]),
             name=str(data["name"]),
             types=types,
+            moves=moves,
+            abilities=[],  # temporal
+            stats=[],  # temporal
+            sprites=None,  # temporal (si tu modelo lo permite)
+            cries=None,  # temporal (si tu modelo lo permite)
         )

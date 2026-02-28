@@ -2,7 +2,6 @@ import argparse
 import json
 import logging
 import sys
-from dataclasses import asdict
 from typing import Sequence
 
 from pokedex.client.errors import (
@@ -55,7 +54,13 @@ def cmd_get(args: argparse.Namespace) -> int:
         pokemon = client.get_pokemon(args.name_or_id)
 
         if args.json:
-            print(json.dumps(asdict(pokemon), ensure_ascii=False, indent=2))
+            payload = {
+                "id": pokemon.id,
+                "name": pokemon.name,
+                "types": pokemon.types,
+                "moves": [m.move.name for m in pokemon.moves[:4]],
+            }
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
             logger.debug(f"Outputted Pokémon data in JSON format: {pokemon}")
         else:
             print(render_pokemon_human(pokemon))
@@ -112,7 +117,14 @@ def render_pokemon_human(pokemon) -> str:
 
     types_str = ", ".join(pokemon.types)
 
-    return f"Pokemon: {pokemon.name} (#{pokemon.id})\nTypes  : {types_str}"
+    moves_str = ""
+    if pokemon.moves:
+        move_names = [m.move.name for m in pokemon.moves[:4]]
+        moves_str = "\nMoves  : " + ", ".join(move_names)
+    else:
+        moves_str = "\nMoves  : None"
+
+    return f"Pokemon: {pokemon.name} (#{pokemon.id})\nTypes  : {types_str}{moves_str}"
 
 
 def main(argv: Sequence[str] | None = None) -> int:
